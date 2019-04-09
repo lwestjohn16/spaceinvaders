@@ -7,6 +7,7 @@ class enemy
 private:
     int value;
     QRect rect;
+    int xcoord, ycoord, xspeed, yspeed;
 public:
     enemy();
 };

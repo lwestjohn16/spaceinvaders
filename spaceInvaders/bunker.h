@@ -7,6 +7,7 @@ class bunker
 private:
     int health = 3;
     QRect rect;
+    int xcoord, ycoord;
 public:
     bunker();
 };
