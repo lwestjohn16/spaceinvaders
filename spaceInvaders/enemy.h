@@ -8,8 +8,9 @@ private:
     int value;
     QRect rect;
     int xcoord, ycoord, xspeed, yspeed;
+    bool isDead;
 public:
-    enemy();
+    enemy(int x, int y);
 };
 
 #endif // ENEMY_H
