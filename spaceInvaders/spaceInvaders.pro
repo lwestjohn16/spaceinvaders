@@ -38,4 +38,5 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 RESOURCES += \
-    sound.qrc
+    sound.qrc \
+    image.qrc

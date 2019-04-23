@@ -5,11 +5,12 @@
 class player
 {
 private:
-    int lives;
     QRect rect;
-    int xcoord, ycoord, xspeed, yspeed;
+    int xcoord, ycoord;
 public:
     player();
+    void moveRight();
+    void moveLeft();
 };
 
 #endif // PLAYER_H

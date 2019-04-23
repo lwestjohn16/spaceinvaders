@@ -36,7 +36,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    int score;
+    int score, lives;
     player *spyro;
     enemy *ryhnoc[11][5];
     bool gameOver;
