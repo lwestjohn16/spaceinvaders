@@ -81,8 +81,8 @@
    <widget class="QPushButton" name="start">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>540</y>
+      <x>140</x>
+      <y>470</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -94,8 +94,8 @@
    <widget class="QPushButton" name="controls">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>540</y>
+      <x>330</x>
+      <y>470</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -107,8 +107,8 @@
    <widget class="QPushButton" name="close">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>540</y>
+      <x>510</x>
+      <y>470</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -120,16 +120,16 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>70</y>
-      <width>131</width>
-      <height>61</height>
+      <x>320</x>
+      <y>30</y>
+      <width>221</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Roman</family>
-      <pointsize>14</pointsize>
+      <pointsize>24</pointsize>
      </font>
     </property>
     <property name="text">
@@ -139,20 +139,84 @@
    <widget class="QLabel" name="description">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>140</y>
-      <width>341</width>
-      <height>71</height>
+      <x>320</x>
+      <y>110</y>
+      <width>221</width>
+      <height>61</height>
      </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
     </property>
     <property name="font">
      <font>
       <family>Roman</family>
-      <pointsize>12</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>A Space Invaders Remake using Spyro Characters</string>
+     <string>A Space Invaders Rip-Off</string>
     </property>
    </widget>
   </widget>

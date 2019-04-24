@@ -6,6 +6,8 @@
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QTimer>
+#include <QPainter>
+#include <QKeyEvent>
 #include "bunker.h"
 #include "enemy.h"
 #include "player.h"
@@ -27,20 +29,24 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
     void stopGame();
-    void checkCollision();
+    bool checkCollision();
+    void movePlayer();
+    void resetEnemies();
 
 private slots:
     void on_close_clicked();
-
     void on_start_clicked();
+    void moveEnemy();
+    void bulletFired();
 
 private:
     Ui::MainWindow *ui;
-    int score, lives;
+    int score, lives, direction, bulletX, bulletY, shotFired, enemiesLeft;
     player *spyro;
-    enemy *ryhnoc[11][5];
-    bool gameOver;
+    enemy *rhynoc[11][5];
+    bool gameOver, moveDown;
     QTimer *timer;
+    QTimer *timer2;
     QMediaPlayer *music;
 };
 

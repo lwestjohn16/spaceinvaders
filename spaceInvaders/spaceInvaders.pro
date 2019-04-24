@@ -1,16 +1,18 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-04-09T07:38:00
+# Project created by QtCreator 2019-04-23T20:28:07
 #
 #-------------------------------------------------
 
 QT       += core gui
-QT += multimedia
+QT       += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = spaceInvaders
 TEMPLATE = app
+
+RC_ICONS = sparx.ico
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -26,17 +28,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    enemy.cpp \
     bunker.cpp \
+    enemy.cpp \
     player.cpp
 
 HEADERS  += mainwindow.h \
-    enemy.h \
     bunker.h \
+    enemy.h \
     player.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
-    sound.qrc \
-    image.qrc
+    image.qrc \
+    sound.qrc

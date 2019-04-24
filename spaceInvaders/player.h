@@ -1,16 +1,17 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <QRect>
+#include <QPixmap>
 
 class player
 {
 private:
-    QRect rect;
     int xcoord, ycoord;
 public:
     player();
     void moveRight();
     void moveLeft();
+    int getX();
+    int getY();
 };
 
 #endif // PLAYER_H
