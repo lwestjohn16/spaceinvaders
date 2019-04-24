@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QRect>
 #include "bunker.h"
 #include "enemy.h"
 #include "player.h"
@@ -32,6 +33,7 @@ protected:
     bool checkCollision();
     void movePlayer();
     void resetEnemies();
+    void gameIsOver();
 
 private slots:
     void on_close_clicked();
@@ -44,6 +46,7 @@ private:
     int score, lives, direction, bulletX, bulletY, shotFired, enemiesLeft;
     player *spyro;
     enemy *rhynoc[11][5];
+    bunker *fort[12][3];
     bool gameOver, moveDown;
     QTimer *timer;
     QTimer *timer2;

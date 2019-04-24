@@ -13,8 +13,34 @@ MainWindow::MainWindow(QWidget *parent) :
     shotFired = 0;
     enemiesLeft = 55;
     shotFired = 0;
+    gameOver = true;
     bulletX = 1000;
     bulletY = 1000;
+    for(int i = 0; i < 12; i++){
+        for(int j = 0; j < 3; j++){
+            if(i < 3){
+                fort[i][j] = new bunker(i*50+50, j*50+600);
+                if(i == 1 && j == 3){
+                    fort[i][j]->setHealth(-3);
+                }
+            } else if(i >= 3 && i < 6){
+                fort[i][j] = new bunker(i*50+150, j*50+600);
+                if(i == 4 && j == 3){
+                    fort[i][j]->setHealth(-3);
+                }
+            } else if(i >= 6 && i < 9){
+                fort[i][j] = new bunker(i*50+250, j*50+600);
+                if(i == 7 && j == 3){
+                    fort[i][j]->setHealth(-3);
+                }
+            } else if(i >= 9 && i < 12){
+                fort[i][j] = new bunker(i*50+350, j*50+600);
+                if(i == 10 && j == 3){
+                    fort[i][j]->setHealth(-3);
+                }
+            }
+        }
+    }
     for(int i = 0; i < 11; i++){
         for(int j = 0; j < 5; j++){
             rhynoc[i][j] = new enemy((i*50),((j*50)+50));
@@ -37,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timer = new QTimer();
     timer->setInterval(10);
     timer2 = new QTimer();
-    timer2->setInterval(1000);
+    timer2->setInterval(100);
     connect(timer, SIGNAL(timeout()), this, SLOT(bulletFired()));
     connect(timer2, SIGNAL(timeout()), this, SLOT(moveEnemy()));
 }
@@ -53,8 +79,11 @@ void MainWindow::on_close_clicked(){
 
 void MainWindow::on_start_clicked(){
     ui->start->hide();
-    ui->controls->hide();
     ui->close->hide();
+    ui->controls->hide();
+    ui->left->hide();
+    ui->right->hide();
+    ui->shoot->hide();
     ui->title->hide();
     ui->description->hide();
     gameOver = false;
@@ -71,19 +100,35 @@ void MainWindow::paintEvent(QPaintEvent *event){
     QPixmap pirate(":/image/pirate.png");
     QPixmap spy(":/image/spyro.png");\
     QPixmap bullet(":/image/fireball.png");
-    for(int i = 0; i < 11; i++){
-        for(int j = 0; j < 5; j++){
-            if((j == 0) && (rhynoc[i][j]->getDead() == false)){
-                painter.drawPixmap(rhynoc[i][j]->getX(), rhynoc[i][j]->getY(), 50, 50, lep);
-            }else if(((j == 1) || (j == 2)) && (rhynoc[i][j]->getDead() == false)){
-                painter.drawPixmap(rhynoc[i][j]->getX(), rhynoc[i][j]->getY(), 50, 50, barrel);
-            }else if(((j == 3) || (j == 4)) && (rhynoc[i][j]->getDead() == false)){
-                painter.drawPixmap(rhynoc[i][j]->getX(), rhynoc[i][j]->getY(), 50, 50, pirate);
+    if(gameOver == false){
+        for(int i = 0; i < 12; i++){
+            for(int j = 0; j < 3; j++){
+                if(fort[i][j]->getHealth() == 3){
+                    painter.setBrush(Qt::black);
+                    painter.drawRect(*fort[i][j]->rect);
+                } else if(fort[i][j]->getHealth() == 2){
+                    painter.setBrush(Qt::yellow);
+                    painter.drawRect(*fort[i][j]->rect);
+                } else if(fort[i][j]->getHealth() == 1){
+                    painter.setBrush(Qt::blue);
+                    painter.drawRect(*fort[i][j]->rect);
+                }
             }
         }
+        for(int i = 0; i < 11; i++){
+            for(int j = 0; j < 5; j++){
+                if((j == 0) && (rhynoc[i][j]->getDead() == false)){
+                    painter.drawPixmap(rhynoc[i][j]->getX(), rhynoc[i][j]->getY(), 50, 50, lep);
+                }else if(((j == 1) || (j == 2)) && (rhynoc[i][j]->getDead() == false)){
+                    painter.drawPixmap(rhynoc[i][j]->getX(), rhynoc[i][j]->getY(), 50, 50, barrel);
+                }else if(((j == 3) || (j == 4)) && (rhynoc[i][j]->getDead() == false)){
+                    painter.drawPixmap(rhynoc[i][j]->getX(), rhynoc[i][j]->getY(), 50, 50, pirate);
+                }
+            }
+        }
+        painter.drawPixmap(spyro->getX(), spyro->getY(), 50, 50, spy);
+        if(shotFired == 1){painter.drawPixmap(bulletX, bulletY, 25, 25, bullet);}
     }
-    painter.drawPixmap(spyro->getX(), spyro->getY(), 50, 50, spy);
-    if(shotFired == 1){painter.drawPixmap(bulletX, bulletY, 25, 25, bullet);}
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
@@ -95,7 +140,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
         if(shotFired == 0){
             shotFired = 1;
             bulletX = spyro->getX()+12;
-            bulletY = spyro->getY()+25;
+            bulletY = spyro->getY()-25;
         }
     }
 }
@@ -117,6 +162,9 @@ void MainWindow::moveEnemy(){
             for(int j = 0; j < 5; j++){
                 if(moveDown == true){
                     rhynoc[i][j]->moveY(50);
+                    if(rhynoc[i][j]->getY() >= 750){
+                        gameIsOver();
+                    }
                     direction = 1;
                 } else{
                     rhynoc[i][j]->moveX(50);
@@ -128,6 +176,9 @@ void MainWindow::moveEnemy(){
             for(int j = 0; j < 5; j++){
                 if(moveDown == true){
                     rhynoc[i][j]->moveY(50);
+                    if(rhynoc[i][j]->getY() >= 750){
+                        gameIsOver();
+                    }
                     direction = 0;
                 } else{
                     rhynoc[i][j]->moveX(-50);
@@ -157,19 +208,21 @@ bool MainWindow::checkCollision(){
 }
 
 void MainWindow::bulletFired(){
-    if(checkCollision()){
-        shotFired = 0;
-        if(enemiesLeft == 0){
-            resetEnemies();
+    if(shotFired == 1){
+        if(checkCollision()){
+            shotFired = 0;
+            if(enemiesLeft == 0){
+             resetEnemies();
+            }
+            bulletX = 1000;
+            bulletY = 1000;
+        } else if(bulletY < 0){
+            shotFired = 0;
+            bulletX = 1000;
+            bulletY = 1000;
+        } else{
+            bulletY -= 25;
         }
-        bulletX = 1000;
-        bulletY = 1000;
-    } else if(bulletY < 0){
-        shotFired = 0;
-        bulletX = 1000;
-        bulletY = 1000;
-    } else{
-        bulletY += 25;
     }
     update();
 }
@@ -179,14 +232,22 @@ void MainWindow::resetEnemies(){
         for(int j = 0; j < 5; j++){
             rhynoc[i][j] = new enemy((i*50),((j*50)+50));
             rhynoc[i][j]->setDead(false);
-            if(i == 0){
-                rhynoc[i][j]->setValue(30);
-            } else if((i == 1) || (i == 2)){
-                rhynoc[i][j]->setValue(20);
-            } else if((i == 3) || (i == 4)){
-                rhynoc[i][j]->setValue(10);
-            }
         }
     }
     enemiesLeft = 55;
+    direction = 0;
+}
+
+void MainWindow::gameIsOver(){
+    gameOver = true;
+    timer->stop();
+    timer2->stop();
+    for(int i = 0; i < 11; i++){
+        for(int j = 0; j < 5; j++){
+            rhynoc[i][j] = new enemy((i*50),((j*50)+50));
+            rhynoc[i][j]->setDead(false);
+        }
+    }
+    enemiesLeft = 55;
+    direction = 0;
 }

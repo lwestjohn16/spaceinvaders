@@ -2,7 +2,7 @@
 
 player::player()
 {
-    ycoord = 600;
+    ycoord = 750;
     xcoord = 500;
 }
 
